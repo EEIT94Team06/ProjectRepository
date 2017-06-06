@@ -27,7 +27,7 @@ public class SeatVO {
 
 	@Override
 	public String toString() {
-		return "SeatVO [seat_no=" + seat_no + ", seatArea=" + seatArea + ", gameSeats=" +  "]";
+		return "SeatVO [seat_no=" + seat_no + ", seatArea=" + seatArea + "]";
 	}
 	public String getSeat_no() {
 		return seat_no;

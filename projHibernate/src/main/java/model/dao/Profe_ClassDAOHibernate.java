@@ -1,5 +1,6 @@
 package model.dao;
 
+import java.util.Date;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -25,9 +26,28 @@ public class Profe_ClassDAOHibernate implements Profe_ClassDAO {
 	public static void main(String[] args) {
 		SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 		Profe_ClassDAO dao = new Profe_ClassDAOHibernate(sessionfactory);
+		Profe_ClassVO bean = new Profe_ClassVO();
 		try {
 			sessionfactory.getCurrentSession().beginTransaction();
-
+			//test select 
+//			System.out.println(dao.select(1));
+			
+			//test selectAll
+//			System.out.println(dao.selectAll());
+			
+			//test insert
+			bean.setClassbean(new ClassDAOhibernate(sessionfactory).select(1));
+			bean.setCoach(new CoachDAOHibernate(sessionfactory).select("alex"));
+			bean.setStart_time(new java.sql.Timestamp(new Date().getTime()) );
+			bean.setEnd_time(new java.sql.Timestamp(new Date().getTime()) );
+			System.out.println(dao.insert(bean));
+			
+			//test update
+//			System.out.println(dao.update("05-05", new SeatAreaDAOHibernate(sessionfactory).select(1)));
+			
+			//test delete
+//			System.out.println(dao.delete("05-05"));
+			
 			sessionfactory.getCurrentSession().getTransaction().commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -37,34 +57,21 @@ public class Profe_ClassDAOHibernate implements Profe_ClassDAO {
 		}
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.dao.Profe_ClassDAO#select(int)
-	 */
+	
 	@Override
 	public Profe_ClassVO select(Integer Profe_sd) {
 		return getSession().get(Profe_ClassVO.class, Profe_sd);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.dao.Profe_ClassDAO#selectAll()
-	 */
+	
 	@Override
 	@SuppressWarnings("unchecked")
 	public List<Profe_ClassVO> selectAll() {
-		List<Profe_ClassVO> result = getSession().createQuery("SELECT bean FROM Profe_ClassVO bean WHERE =?")
+		List<Profe_ClassVO> result = getSession().createQuery("SELECT bean FROM Profe_ClassVO bean ")
 				.getResultList();
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.dao.Profe_ClassDAO#insert(model.Profe_ClassVO)
-	 */
 	@Override
 	public Profe_ClassVO insert(Profe_ClassVO bean) {
 		if (bean != null) {
@@ -79,12 +86,6 @@ public class Profe_ClassDAOHibernate implements Profe_ClassDAO {
 	}
 
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.dao.Profe_ClassDAO#update(int, model.ClassVO, model.CoachVO,
-	 * java.sql.Timestamp, java.sql.Timestamp, int)
-	 */
 	@Override
 	public Profe_ClassVO update(Integer profe_sd, ClassVO class_sd, CoachVO coach_acct, java.sql.Timestamp start_time,
 			java.sql.Timestamp end_time, Integer class_qty) {
@@ -104,11 +105,6 @@ public class Profe_ClassDAOHibernate implements Profe_ClassDAO {
 		return result;
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see model.dao.Profe_ClassDAO#delete(java.lang.String)
-	 */
 	@Override
 	public boolean delete(String Profe_sd) {
 		int result = getSession().createQuery("DELETE FROM Profe_ClassVO WHERE Profe_sd=:Profe_sd")

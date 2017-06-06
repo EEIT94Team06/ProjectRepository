@@ -1,10 +1,5 @@
 package model.dao;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -32,8 +27,19 @@ public class Profe_Class_DetailDAOHibernate implements Profe_Class_DetailDAO {
 		Profe_Class_DetailVO bean= new Profe_Class_DetailVO();
 		try{
 			sessionfactory.getCurrentSession().beginTransaction();
+			//test select
+//			System.out.println(dao.select(1));
 			
+			//test selectAll
+//			System.out.println(dao.selectAll(1));
 			
+			//test insert
+//			bean.setClass_Order(new Class_OrderDAOhibernate(sessionfactory).select(1));
+//			bean.setProfe_Class(new Profe_ClassDAOHibernate(sessionfactory).select(1));
+//			System.out.println(dao.insert(bean));
+			
+			//test delete
+			System.out.println(dao.delete(3));
 			
 			sessionfactory.getCurrentSession().getTransaction().commit();
 		}catch(RuntimeException e){
@@ -54,7 +60,7 @@ public class Profe_Class_DetailDAOHibernate implements Profe_Class_DetailDAO {
 	public List<Profe_Class_DetailVO> selectAll(Integer class_order_sd) {
 		List<Profe_Class_DetailVO> result = getSession()
 				.createQuery(
-						"SELECT Profe_Class_DetailVO FROM Profe_Class_DetailVO bean" + "	WHERE class_order_sd =?")
+						"SELECT bean FROM Profe_Class_DetailVO bean WHERE class_order_sd =?")
 				.setParameter(0, class_order_sd).getResultList();
 		return result;
 	}
@@ -81,7 +87,8 @@ public class Profe_Class_DetailDAOHibernate implements Profe_Class_DetailDAO {
 		// result = true;
 		// }
 		// return result;
-		int result = getSession().createQuery("DELETE FROM WHERE =?").executeUpdate();
+		int result = getSession().createQuery("DELETE FROM Profe_Class_DetailVO "
+				+ "WHERE profe_c_detail_sd =?").setParameter(0, profe_c_detail_sd).executeUpdate();
 		if (result > 0) {
 			return true;
 		} else if (result == 0) {

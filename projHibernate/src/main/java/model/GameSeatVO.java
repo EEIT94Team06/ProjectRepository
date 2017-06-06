@@ -6,6 +6,7 @@ import javax.persistence.*;
 @Table(name="Game_seat")
 public class GameSeatVO implements java.io.Serializable {
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	@Column(name="game_seat_sd")
 	private Integer game_seat_sd;
 	@ManyToOne

@@ -30,9 +30,25 @@ public class SeatDAOHibernate implements SeatDAO {
 	public static void main(String[] args) {
 		SessionFactory sessionfactory = HibernateUtil.getSessionFactory();
 		SeatDAO dao = new SeatDAOHibernate(sessionfactory);
+		SeatVO bean = new SeatVO();
 		try {
 			sessionfactory.getCurrentSession().beginTransaction();
-
+			//test select 
+//			System.out.println(dao.select("01-01"));
+			
+			//test selectAll
+//			System.out.println(dao.selectAll());
+			
+			//test insert
+			bean.setSeat_no("05-05");
+			bean.setSeatArea(new SeatAreaDAOHibernate(sessionfactory).select(2));
+			System.out.println(dao.insert(bean));
+			
+			//test update
+//			System.out.println(dao.update("05-05", new SeatAreaDAOHibernate(sessionfactory).select(1)));
+			
+			//test delete
+//			System.out.println(dao.delete("05-05"));
 			sessionfactory.getCurrentSession().getTransaction().commit();
 		} catch (RuntimeException e) {
 			e.printStackTrace();
@@ -59,8 +75,8 @@ public class SeatDAOHibernate implements SeatDAO {
 	public SeatVO insert(SeatVO bean) {
 		SeatVO result = null;
 		if(bean != null){
-			SeatVO context = this.select(bean.getSeat_no());
-			if(context == null){
+			SeatVO context = this.select(bean.getSeat_no());			
+			if(context == null){	
 				getSession().save(bean);
 				return bean;
 			}
@@ -74,7 +90,8 @@ public class SeatDAOHibernate implements SeatDAO {
 		if(result != null){
 			result.setSeat_no(seat_no);//不是實體的東西無法儲存資料。 reference variable: you cannot use this variable because it just doesn't point to anywhere (it is null).
 			result.setSeatArea(seat_area);//用vo進行修改
-			getSession().update(result);
+//			getSession().update(result);
+//			return result;
 		}
 		return result;
 	}
@@ -82,8 +99,8 @@ public class SeatDAOHibernate implements SeatDAO {
 	
 	@Override
 	public boolean delete(String seat_no) {
-		int result = getSession().createQuery("DELETE FROM SeatVO WHERE seat_no=:seat_no")
-				.setParameter(0, seat_no).executeUpdate();
+		int result = getSession().createQuery("DELETE FROM SeatVO WHERE seat_no=?")
+				.setParameter(0,seat_no).executeUpdate();
 		if (result > 0) {
 			return true;
 		} else if (result == 0) {

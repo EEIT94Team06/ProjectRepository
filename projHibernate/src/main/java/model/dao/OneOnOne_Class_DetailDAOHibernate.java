@@ -59,7 +59,7 @@ public class OneOnOne_Class_DetailDAOHibernate implements OneOnOne_Class_DetailD
 //				System.out.print(array.getOoo_start()+",");
 //				System.out.println(array.getOoo_end());
 //			}
-			System.out.println(dao.selectAll(10));
+			System.out.println(dao.selectAll(1));
 //			List<OneOnOne_Class_DetailVO> list = dao.selectAll(3);
 //			for(OneOnOne_Class_DetailVO array:list){
 //				System.out.println(array);
