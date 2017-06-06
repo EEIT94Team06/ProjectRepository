@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+<!-- 		<property name="hibernate.connection.datasource">java:comp/env/jdbc/xxx</property> -->
+		<property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+		<property name="hibernate.connection.url">jdbc:sqlserver://localhost:1433;database=Project2</property>
+		<property name="hibernate.connection.username">sa</property>
+		<property name="hibernate.connection.password">passw0rd</property>
+        <!-- Driver 帳密正確 -->
+        <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+<!--         如果是getCurrentSession的組態設定檔必須要有下面這一行，將session綁定當前的thread -->
+        <property name="hibernate.current_session_context_class">thread</property>
+<!--         <property name="hibernate.current_session_context_class">thread</property> -->
+        <property name="hibernate.show_sql">true</property>
+
+<!-- 		<mapping resource="model/Member.hbm.xml"  /> -->
+<!-- 		<mapping resource="model/OneOnOne_Class_Detail.hbm.xml"  /> -->
+<!-- 		<mapping resource="model/Profe_Class_Detail.hbm.xml"  /> -->
+<!-- 		<mapping resource="model/Profe_Class.hbm.xml"  /> -->
+<!-- 		<mapping resource="model/Seat.hbm.xml"  /> -->
+
+		<mapping class="model.MemberVO"  />
+		<mapping class="model.OneOnOne_Class_DetailVO"  />
+		<mapping class="model.Profe_Class_DetailVO"  />
+		<mapping class="model.Profe_ClassVO"  />
+		<mapping class="model.SeatVO"  />
+		<mapping class="model.SeatAreaVO"  />
+		<mapping class="model.GameVO"  />
+		<mapping class="model.GameSeatVO"  />
+		<mapping class="model.GameDetailVO"  />
+		<mapping class="model.Game_OrderVO"  />
+		<mapping class="model.CoachVO"  />
+		<mapping class="model.ClassVO"  />
+		<mapping class="model.Class_PriceRangeVO"  />
+		<mapping class="model.Class_OrderVO"  />
+		<mapping class="model.AdminVO"  />
+        
+    </session-factory>
+</hibernate-configuration>
